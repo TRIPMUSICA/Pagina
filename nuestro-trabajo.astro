@@ -1,0 +1,227 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import WorkCard from '../components/WorkCard.astro';
+
+// Datos de ejemplo para demostración
+const featuredWork = {
+  title: "Sonidos del Sur: Un Documental",
+  type: "Documental",
+  thumbnail: "https://images.pexels.com/photos/7258521/pexels-photo-7258521.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  description: "Un viaje a través de la evolución de la música electrónica en Sudamérica, con entrevistas a artistas pioneros y explorando cómo los sonidos tradicionales están siendo reimaginados a través de técnicas de producción modernas. Este documental muestra las prósperas escenas underground en ciudades como Bogotá, Santiago, Buenos Aires y Ciudad de México.",
+  date: "Abril 2025",
+  credits: [
+    "Directora: María González",
+    "Productora: TRIP Música",
+    "Cinematografía: Juan Restrepo",
+    "Diseño de Sonido: Carlos Mendoza",
+    "Con: Nicola Cruz, Chancha Via Circuito, Dengue Dengue Dengue, y más"
+  ],
+  videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  url: "/nuestro-trabajo/sonidos-del-sur"
+};
+
+// Categorías para tipos de trabajo
+const categories = ["Todos", "Documental", "Sesión en Vivo", "Entrevista", "Video Musical", "Fotografía de Concierto"];
+
+// Elementos de trabajo
+const works = [
+  {
+    title: "DJ Raff en Vivo desde Festival Nómade",
+    type: "Sesión en Vivo",
+    thumbnail: "https://images.pexels.com/photos/3784566/pexels-photo-3784566.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Grabación exclusiva de la presentación revolucionaria de DJ Raff en el Festival Nómade de Colombia.",
+    date: "Marzo 2025",
+    url: "/nuestro-trabajo/dj-raff-festival-nomade",
+    videoUrl: "https://youtube.com",
+    credits: ["Videografía: Equipo TRIP Música", "Audio: Carlos Mendoza"]
+  },
+  {
+    title: "Entrevista: Chancha Via Circuito sobre Raíces Digitales",
+    type: "Entrevista",
+    thumbnail: "https://images.pexels.com/photos/2531728/pexels-photo-2531728.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Una conversación profunda con Chancha Via Circuito sobre su nuevo álbum y la evolución de su sonido.",
+    date: "Febrero 2025",
+    url: "/nuestro-trabajo/entrevista-chancha-via-circuito",
+    videoUrl: "https://youtube.com",
+    credits: ["Entrevistadora: María González", "Cámara: Juan Restrepo"]
+  },
+  {
+    title: "Bomba Estéreo - Video Musical 'Fuego'",
+    type: "Video Musical",
+    thumbnail: "https://images.pexels.com/photos/2263436/pexels-photo-2263436.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Video musical oficial del último sencillo de Bomba Estéreo 'Fuego', dirigido por TRIP Música.",
+    date: "Enero 2025",
+    url: "/nuestro-trabajo/bomba-estereo-fuego-video-musical",
+    videoUrl: "https://youtube.com",
+    credits: ["Directora: María González", "Productora: TRIP Música"]
+  },
+  {
+    title: "Nicola Cruz en Teatro Metropólitan",
+    type: "Fotografía de Concierto",
+    thumbnail: "https://images.pexels.com/photos/144429/pexels-photo-144429.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Galería fotográfica del show sold-out de Nicola Cruz en el Teatro Metropólitan de Ciudad de México.",
+    date: "Diciembre 2024",
+    url: "/nuestro-trabajo/nicola-cruz-teatro-metropolitan",
+    credits: ["Fotografía: Ana Morales"]
+  },
+  {
+    title: "El Búho - Sesión en Vivo TRIP Música",
+    type: "Sesión en Vivo",
+    thumbnail: "https://images.pexels.com/photos/2034851/pexels-photo-2034851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Sesión íntima en vivo con El Búho, interpretando tracks de su último EP en nuestro estudio.",
+    date: "Noviembre 2024",
+    url: "/nuestro-trabajo/el-buho-sesion-trip-musica",
+    videoUrl: "https://youtube.com",
+    credits: ["Director: Juan Restrepo", "Audio: Carlos Mendoza"]
+  },
+  {
+    title: "Beats Underground de São Paulo",
+    type: "Documental",
+    thumbnail: "https://images.pexels.com/photos/1886694/pexels-photo-1886694.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Un documental corto explorando la vibrante escena de música electrónica en São Paulo, Brasil.",
+    date: "Octubre 2024",
+    url: "/nuestro-trabajo/beats-underground-sao-paulo",
+    videoUrl: "https://youtube.com",
+    credits: ["Directora: María González", "Productora: TRIP Música"]
+  }
+];
+---
+
+<Layout title="Nuestro Trabajo">
+  <Hero 
+    title="Nuestro Trabajo" 
+    subtitle="Un showcase de nuestras producciones audiovisuales, incluyendo sesiones en vivo, entrevistas, documentales y más"
+    image="https://images.pexels.com/photos/2034851/pexels-photo-2034851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    height="medium"
+  />
+  
+  <!-- Sección de Trabajo Destacado -->
+  <section class="py-16 bg-trip-black">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold mb-10">Trabajo Destacado</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div class="lg:col-span-3">
+          <div class="relative overflow-hidden rounded-lg aspect-video">
+            <img 
+              src={featuredWork.thumbnail} 
+              alt={featuredWork.title}
+              class="w-full h-full object-cover"
+            />
+            
+            {featuredWork.videoUrl && (
+              <a href={featuredWork.videoUrl} target="_blank" rel="noopener noreferrer" class="absolute inset-0 flex items-center justify-center group">
+                <div class="absolute inset-0 bg-trip-black bg-opacity-40 transition-opacity group-hover:bg-opacity-60"></div>
+                <div class="w-20 h-20 rounded-full bg-trip-accent/80 flex items-center justify-center transition-transform group-hover:scale-110 relative z-10">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </a>
+            )}
+            
+            <div class="absolute top-3 left-3 bg-trip-black bg-opacity-80 text-xs text-white py-1 px-2 rounded">
+              {featuredWork.type}
+            </div>
+          </div>
+        </div>
+        
+        <div class="lg:col-span-2">
+          <h3 class="text-3xl font-bold mb-3">{featuredWork.title}</h3>
+          <p class="text-gray-400 mb-4">{featuredWork.date}</p>
+          
+          <p class="text-gray-300 mb-6">{featuredWork.description}</p>
+          
+          <div class="mb-6">
+            <h4 class="text-lg font-bold mb-3">Créditos</h4>
+            <ul class="space-y-1 text-gray-300">
+              {featuredWork.credits.map(credit => (
+                <li>{credit}</li>
+              ))}
+            </ul>
+          </div>
+          
+          <div class="flex flex-wrap gap-4">
+            <a 
+              href={featuredWork.url} 
+              class="inline-block bg-trip-accent hover:bg-opacity-90 transition-colors text-white px-6 py-3 rounded-lg font-medium"
+            >
+              Ver Proyecto
+            </a>
+            
+            {featuredWork.videoUrl && (
+              <a 
+                href={featuredWork.videoUrl}
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-block bg-transparent border-2 border-white hover:border-trip-accent hover:text-trip-accent transition-colors text-white px-6 py-3 rounded-lg font-medium flex items-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Ver Video
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Sección de Todos los Trabajos -->
+  <section class="py-16 bg-trip-dark">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+        <h2 class="text-3xl font-bold">Todos los Trabajos</h2>
+        
+        <div class="flex overflow-x-auto py-2 md:py-0 space-x-2 md:space-x-3">
+          {categories.map((category, index) => (
+            <button class={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${index === 0 ? 'bg-trip-accent text-white' : 'bg-trip-gray text-white hover:bg-trip-light'}`}>
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {works.map(work => (
+          <WorkCard 
+            title={work.title}
+            type={work.type}
+            thumbnail={work.thumbnail}
+            description={work.description}
+            date={work.date}
+            url={work.url}
+            videoUrl={work.videoUrl}
+            credits={work.credits}
+          />
+        ))}
+      </div>
+      
+      <div class="mt-12 flex justify-center">
+        <button class="bg-trip-gray hover:bg-trip-light transition-colors text-white py-3 px-6 rounded-lg font-medium">
+          Cargar Más
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Sección de Colaboración -->
+  <section class="py-16 bg-trip-accent">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Colabora Con Nosotros</h2>
+        <p class="text-white text-lg mb-8">¿Eres un artista, sello discográfico o venue buscando colaborar en un proyecto? Nos encantaría escucharte. Nuestro equipo se especializa en documentales, sesiones en vivo, videos musicales y cobertura de eventos.</p>
+        
+        <a 
+          href="/contacto" 
+          class="inline-block bg-white text-trip-accent py-3 px-6 rounded-lg font-medium hover:bg-opacity-90 transition-colors"
+        >
+          Ponte en Contacto
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

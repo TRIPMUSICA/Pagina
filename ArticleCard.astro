@@ -1,0 +1,79 @@
+---
+interface Props {
+  title: string;
+  excerpt: string;
+  image: string;
+  category: string;
+  date: string;
+  url: string;
+  featured?: boolean;
+}
+
+const { title, excerpt, image, category, date, url, featured = false } = Astro.props;
+---
+
+<article class={`article-card group ${featured ? 'featured' : ''}`}>
+  <a href={url} class="block overflow-hidden relative">
+    <div class="article-image-container overflow-hidden">
+      <img 
+        src={image} 
+        alt={title}
+        class="w-full h-full object-cover transition-transform duration-500 ease-expo-out group-hover:scale-105"
+        loading="lazy"
+      />
+    </div>
+    
+    <div class="article-content p-5 lg:p-6">
+      <div class="mb-3 flex items-center justify-between">
+        <span class="text-trip-accent text-sm font-medium uppercase tracking-wider">{category}</span>
+        <span class="text-gray-400 text-sm">{date}</span>
+      </div>
+      
+      <h3 class="text-xl lg:text-2xl font-bold mb-3 group-hover:text-trip-accent transition-colors">
+        {title}
+      </h3>
+      
+      <p class="text-gray-300 line-clamp-3">
+        {excerpt}
+      </p>
+      
+      <div class="mt-4 inline-flex items-center text-trip-accent font-medium">
+        Read more
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </div>
+    </div>
+  </a>
+</article>
+
+<style>
+  .article-card {
+    @apply bg-trip-gray rounded-lg overflow-hidden transition-all;
+    height: 100%;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .article-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px);
+  }
+  
+  .article-image-container {
+    aspect-ratio: 16 / 9;
+  }
+  
+  .featured .article-image-container {
+    aspect-ratio: 16 / 10;
+  }
+  
+  @media (min-width: 1024px) {
+    .featured {
+      grid-column: span 2;
+    }
+    
+    .featured .article-content h3 {
+      @apply text-3xl;
+    }
+  }
+</style>

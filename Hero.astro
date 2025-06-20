@@ -1,0 +1,51 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  image: string;
+  overlay?: boolean;
+  height?: 'small' | 'medium' | 'large' | 'full';
+  contentPosition?: 'center' | 'bottom';
+}
+
+const { 
+  title, 
+  subtitle,
+  image,
+  overlay = true,
+  height = 'medium', 
+  contentPosition = 'center'
+} = Astro.props;
+
+const heightClass = {
+  small: 'min-h-[300px] md:min-h-[400px]',
+  medium: 'min-h-[400px] md:min-h-[500px]',
+  large: 'min-h-[500px] md:min-h-[600px]',
+  full: 'min-h-screen'
+}[height];
+
+const positionClass = {
+  center: 'items-center',
+  bottom: 'items-end pb-16'
+}[contentPosition];
+---
+
+<section class={`hero relative w-full ${heightClass} flex ${positionClass}`}>
+  <div class="absolute inset-0 z-0">
+    <img 
+      src={image} 
+      alt={title}
+      class="w-full h-full object-cover"
+      fetchpriority="high"
+    />
+    {overlay && <div class="absolute inset-0 bg-gradient-to-t from-trip-black via-trip-black/70 to-transparent opacity-80"></div>}
+  </div>
+  
+  <div class="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+    <div class="max-w-3xl slide-up">
+      <h1 class="text-display font-bold text-white mb-4 leading-tight">{title}</h1>
+      {subtitle && <p class="text-xl md:text-2xl text-gray-200">{subtitle}</p>}
+      <slot />
+    </div>
+  </div>
+</section>

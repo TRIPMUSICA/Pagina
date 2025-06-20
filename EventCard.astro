@@ -1,0 +1,90 @@
+---
+interface Props {
+  title: string;
+  artists: string[];
+  date: string;
+  time: string;
+  venue: string;
+  location: string;
+  image: string;
+  ticketUrl?: string;
+  url: string;
+}
+
+const { 
+  title, 
+  artists, 
+  date, 
+  time, 
+  venue, 
+  location, 
+  image, 
+  ticketUrl, 
+  url 
+} = Astro.props;
+---
+
+<article class="event-card group relative">
+  <a href={url} class="block h-full">
+    <div class="relative overflow-hidden rounded-lg">
+      <div class="aspect-[3/2]">
+        <img 
+          src={image} 
+          alt={title}
+          class="w-full h-full object-cover transition-transform duration-500 ease-expo-out group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-trip-black to-transparent opacity-80"></div>
+      </div>
+      
+      <div class="absolute top-4 left-4 bg-trip-accent rounded py-1 px-3 text-white text-sm font-medium">
+        {date}
+      </div>
+      
+      <div class="absolute bottom-0 left-0 w-full p-5">
+        <h3 class="text-xl font-bold mb-1 group-hover:text-trip-accent transition-colors">{title}</h3>
+        <p class="text-gray-300 mb-3">{artists.join(' • ')}</p>
+        
+        <div class="flex items-center text-sm text-gray-300 mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-trip-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {time}
+        </div>
+        
+        <div class="flex items-center text-sm text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-trip-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          {venue}, {location}
+        </div>
+      </div>
+    </div>
+  </a>
+  
+  {ticketUrl && (
+    <div class="absolute top-4 right-4">
+      <a 
+        href={ticketUrl}
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="bg-trip-accent hover:bg-opacity-90 transition-colors text-white text-sm font-medium py-1 px-3 rounded shadow-md"
+      >
+        Tickets
+      </a>
+    </div>
+  )}
+</article>
+
+<style>
+  .event-card {
+    @apply bg-trip-gray rounded-lg overflow-hidden transition-all;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .event-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px);
+  }
+</style>

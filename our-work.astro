@@ -1,0 +1,227 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import WorkCard from '../components/WorkCard.astro';
+
+// Sample data for demonstration
+const featuredWork = {
+  title: "Sonidos del Sur: A Documentary",
+  type: "Documentary",
+  thumbnail: "https://images.pexels.com/photos/7258521/pexels-photo-7258521.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  description: "A journey through the evolution of electronic music in South America, featuring interviews with groundbreaking artists and exploring how traditional sounds are being reimagined through modern production techniques. This documentary showcases the thriving underground scenes in cities like Bogotá, Santiago, Buenos Aires, and Mexico City.",
+  date: "April 2025",
+  credits: [
+    "Director: Maria Gonzalez",
+    "Producer: TRIP Música",
+    "Cinematography: Juan Restrepo",
+    "Sound Design: Carlos Mendoza",
+    "Featuring: Nicola Cruz, Chancha Via Circuito, Dengue Dengue Dengue, and more"
+  ],
+  videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  url: "/our-work/sonidos-del-sur"
+};
+
+// Categories for work types
+const categories = ["All", "Documentary", "Live Session", "Interview", "Music Video", "Concert Photography"];
+
+// Work items
+const works = [
+  {
+    title: "DJ Raff Live at Festival Nómade",
+    type: "Live Session",
+    thumbnail: "https://images.pexels.com/photos/3784566/pexels-photo-3784566.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Exclusive live footage of DJ Raff's groundbreaking performance at Festival Nómade in Colombia.",
+    date: "March 2025",
+    url: "/our-work/dj-raff-live-festival-nomade",
+    videoUrl: "https://youtube.com",
+    credits: ["Videography: TRIP Música Team", "Audio: Carlos Mendoza"]
+  },
+  {
+    title: "Interview: Chancha Via Circuito on Digital Roots",
+    type: "Interview",
+    thumbnail: "https://images.pexels.com/photos/2531728/pexels-photo-2531728.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "An in-depth conversation with Chancha Via Circuito about his new album and the evolution of his sound.",
+    date: "February 2025",
+    url: "/our-work/interview-chancha-via-circuito",
+    videoUrl: "https://youtube.com",
+    credits: ["Interviewer: Maria Gonzalez", "Camera: Juan Restrepo"]
+  },
+  {
+    title: "Bomba Estéreo - 'Fuego' Music Video",
+    type: "Music Video",
+    thumbnail: "https://images.pexels.com/photos/2263436/pexels-photo-2263436.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Official music video for Bomba Estéreo's latest single 'Fuego', directed by TRIP Música.",
+    date: "January 2025",
+    url: "/our-work/bomba-estereo-fuego-music-video",
+    videoUrl: "https://youtube.com",
+    credits: ["Director: Maria Gonzalez", "Producer: TRIP Música"]
+  },
+  {
+    title: "Nicola Cruz at Teatro Metropólitan",
+    type: "Concert Photography",
+    thumbnail: "https://images.pexels.com/photos/144429/pexels-photo-144429.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Photo gallery from Nicola Cruz's sold-out show at Teatro Metropólitan in Mexico City.",
+    date: "December 2024",
+    url: "/our-work/nicola-cruz-teatro-metropolitan",
+    credits: ["Photography: Ana Morales"]
+  },
+  {
+    title: "El Búho - TRIP Música Live Session",
+    type: "Live Session",
+    thumbnail: "https://images.pexels.com/photos/2034851/pexels-photo-2034851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Intimate live session with El Búho, performing tracks from his latest EP in our studio.",
+    date: "November 2024",
+    url: "/our-work/el-buho-trip-musica-live-session",
+    videoUrl: "https://youtube.com",
+    credits: ["Director: Juan Restrepo", "Audio: Carlos Mendoza"]
+  },
+  {
+    title: "Underground Beats of São Paulo",
+    type: "Documentary",
+    thumbnail: "https://images.pexels.com/photos/1886694/pexels-photo-1886694.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "A short documentary exploring the vibrant electronic music scene in São Paulo, Brazil.",
+    date: "October 2024",
+    url: "/our-work/underground-beats-sao-paulo",
+    videoUrl: "https://youtube.com",
+    credits: ["Director: Maria Gonzalez", "Producer: TRIP Música"]
+  }
+];
+---
+
+<Layout title="Our Work">
+  <Hero 
+    title="Our Work" 
+    subtitle="A showcase of our audiovisual productions, including live sessions, interviews, documentaries, and more"
+    image="https://images.pexels.com/photos/2034851/pexels-photo-2034851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    height="medium"
+  />
+  
+  <!-- Featured Work Section -->
+  <section class="py-16 bg-trip-black">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold mb-10">Featured Work</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div class="lg:col-span-3">
+          <div class="relative overflow-hidden rounded-lg aspect-video">
+            <img 
+              src={featuredWork.thumbnail} 
+              alt={featuredWork.title}
+              class="w-full h-full object-cover"
+            />
+            
+            {featuredWork.videoUrl && (
+              <a href={featuredWork.videoUrl} target="_blank" rel="noopener noreferrer" class="absolute inset-0 flex items-center justify-center group">
+                <div class="absolute inset-0 bg-trip-black bg-opacity-40 transition-opacity group-hover:bg-opacity-60"></div>
+                <div class="w-20 h-20 rounded-full bg-trip-accent/80 flex items-center justify-center transition-transform group-hover:scale-110 relative z-10">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </a>
+            )}
+            
+            <div class="absolute top-3 left-3 bg-trip-black bg-opacity-80 text-xs text-white py-1 px-2 rounded">
+              {featuredWork.type}
+            </div>
+          </div>
+        </div>
+        
+        <div class="lg:col-span-2">
+          <h3 class="text-3xl font-bold mb-3">{featuredWork.title}</h3>
+          <p class="text-gray-400 mb-4">{featuredWork.date}</p>
+          
+          <p class="text-gray-300 mb-6">{featuredWork.description}</p>
+          
+          <div class="mb-6">
+            <h4 class="text-lg font-bold mb-3">Credits</h4>
+            <ul class="space-y-1 text-gray-300">
+              {featuredWork.credits.map(credit => (
+                <li>{credit}</li>
+              ))}
+            </ul>
+          </div>
+          
+          <div class="flex flex-wrap gap-4">
+            <a 
+              href={featuredWork.url} 
+              class="inline-block bg-trip-accent hover:bg-opacity-90 transition-colors text-white px-6 py-3 rounded-lg font-medium"
+            >
+              View Project
+            </a>
+            
+            {featuredWork.videoUrl && (
+              <a 
+                href={featuredWork.videoUrl}
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-block bg-transparent border-2 border-white hover:border-trip-accent hover:text-trip-accent transition-colors text-white px-6 py-3 rounded-lg font-medium flex items-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Watch Video
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- All Works Section -->
+  <section class="py-16 bg-trip-dark">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+        <h2 class="text-3xl font-bold">All Works</h2>
+        
+        <div class="flex overflow-x-auto py-2 md:py-0 space-x-2 md:space-x-3">
+          {categories.map((category, index) => (
+            <button class={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${index === 0 ? 'bg-trip-accent text-white' : 'bg-trip-gray text-white hover:bg-trip-light'}`}>
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {works.map(work => (
+          <WorkCard 
+            title={work.title}
+            type={work.type}
+            thumbnail={work.thumbnail}
+            description={work.description}
+            date={work.date}
+            url={work.url}
+            videoUrl={work.videoUrl}
+            credits={work.credits}
+          />
+        ))}
+      </div>
+      
+      <div class="mt-12 flex justify-center">
+        <button class="bg-trip-gray hover:bg-trip-light transition-colors text-white py-3 px-6 rounded-lg font-medium">
+          Load More
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Collaborate Section -->
+  <section class="py-16 bg-trip-accent">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Collaborate With Us</h2>
+        <p class="text-white text-lg mb-8">Are you an artist, label, or venue looking to collaborate on a project? We'd love to hear from you. Our team specializes in documentary filmmaking, live sessions, music videos, and event coverage.</p>
+        
+        <a 
+          href="/contact" 
+          class="inline-block bg-white text-trip-accent py-3 px-6 rounded-lg font-medium hover:bg-opacity-90 transition-colors"
+        >
+          Get In Touch
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,283 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ReleaseCard from '../components/ReleaseCard.astro';
+
+// Sample data for demonstration
+const featuredRelease = {
+  title: "Trópico Animal",
+  artist: "Frente Cumbiero",
+  cover: "https://images.pexels.com/photos/2258536/pexels-photo-2258536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  releaseDate: "May 20, 2025",
+  type: "Album",
+  description: "Trópico Animal is the latest masterpiece from Colombian cumbia outfit Frente Cumbiero. This album takes their signature sound to new heights, blending traditional cumbia rhythms with electronic production, dub influences, and experimental soundscapes. Recorded between Bogotá and Mexico City, the album features collaborations with artists from across Latin America.",
+  tracklist: [
+    "Selva Digital",
+    "Cumbia Espacial",
+    "Ritmo Salvaje",
+    "Noche en la Ciudad",
+    "El Futuro Ancestral",
+    "Danza Electrónica",
+    "Frontera Sónica",
+    "Amazonas 2050",
+    "Última Fiesta"
+  ],
+  url: "/releases/frente-cumbiero-tropico-animal",
+  streamingLinks: {
+    spotify: "https://spotify.com",
+    appleMusic: "https://music.apple.com",
+    bandcamp: "https://bandcamp.com",
+    soundcloud: "https://soundcloud.com"
+  }
+};
+
+const releases = [
+  {
+    title: "Digital Roots",
+    artist: "Chancha Via Circuito",
+    cover: "https://images.pexels.com/photos/3717211/pexels-photo-3717211.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "May 12, 2025",
+    type: "Album",
+    url: "/releases/chancha-via-circuito-digital-roots",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      bandcamp: "https://bandcamp.com"
+    }
+  },
+  {
+    title: "Neon Jungle",
+    artist: "Caribombo",
+    cover: "https://images.pexels.com/photos/1995730/pexels-photo-1995730.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "April 28, 2025",
+    type: "EP",
+    url: "/releases/caribombo-neon-jungle",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      appleMusic: "https://music.apple.com"
+    }
+  },
+  {
+    title: "Ciudad Satélite",
+    artist: "Mexican Institute of Sound",
+    cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "April 15, 2025",
+    type: "Single",
+    url: "/releases/mexican-institute-of-sound-ciudad-satelite",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      soundcloud: "https://soundcloud.com"
+    }
+  },
+  {
+    title: "Ancestral Futurism",
+    artist: "Nicola Cruz",
+    cover: "https://images.pexels.com/photos/3075988/pexels-photo-3075988.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "April 5, 2025",
+    type: "Album",
+    url: "/releases/nicola-cruz-ancestral-futurism",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      bandcamp: "https://bandcamp.com"
+    }
+  },
+  {
+    title: "Barrio Lindo",
+    artist: "Uproot Andy",
+    cover: "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "March 20, 2025",
+    type: "EP",
+    url: "/releases/uproot-andy-barrio-lindo",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      appleMusic: "https://music.apple.com"
+    }
+  },
+  {
+    title: "Futuro Primitivo",
+    artist: "Bomba Estéreo",
+    cover: "https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "March 10, 2025",
+    type: "Album",
+    url: "/releases/bomba-estereo-futuro-primitivo",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      bandcamp: "https://bandcamp.com"
+    }
+  },
+  {
+    title: "Cumbia Digital Vol. 3",
+    artist: "Various Artists",
+    cover: "https://images.pexels.com/photos/1699161/pexels-photo-1699161.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "February 28, 2025",
+    type: "Compilation",
+    url: "/releases/various-artists-cumbia-digital-vol-3",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      bandcamp: "https://bandcamp.com"
+    }
+  },
+  {
+    title: "Calle 13",
+    artist: "El Búho",
+    cover: "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "February 15, 2025",
+    type: "EP",
+    url: "/releases/el-buho-calle-13",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      bandcamp: "https://bandcamp.com"
+    }
+  }
+];
+
+// Filter options for demonstration
+const categories = ["All", "Album", "EP", "Single", "Compilation"];
+const years = ["All", "2025", "2024", "2023", "2022", "2021"];
+---
+
+<Layout title="Releases">
+  <Hero 
+    title="Music Releases" 
+    subtitle="The latest albums, EPs, and singles from Latin America's underground electronic scene"
+    image="https://images.pexels.com/photos/1626481/pexels-photo-1626481.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    height="medium"
+  />
+  
+  <!-- Featured Release Section -->
+  <section class="py-16 bg-trip-black">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold mb-10">Featured Release</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div class="lg:col-span-2">
+          <div class="relative overflow-hidden rounded-lg">
+            <img 
+              src={featuredRelease.cover} 
+              alt={`${featuredRelease.title} by ${featuredRelease.artist}`}
+              class="w-full aspect-square object-cover"
+            />
+            <div class="absolute top-3 right-3 bg-trip-black bg-opacity-80 text-xs text-white py-1 px-2 rounded">
+              {featuredRelease.type}
+            </div>
+          </div>
+          
+          <div class="mt-4 flex gap-3">
+            {Object.entries(featuredRelease.streamingLinks).map(([platform, url]) => (
+              <a 
+                href={url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="text-white hover:text-trip-accent transition-colors"
+                title={`Listen on ${platform.charAt(0).toUpperCase() + platform.slice(1)}`}
+              >
+                {platform === 'spotify' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                  </svg>
+                )}
+                {platform === 'appleMusic' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.997 6.124c0-.738-.065-1.47-.24-2.19-.317-1.31-1.062-2.31-2.18-3.043C20.613.32 19.395-.177 18.148.114 17.237.3 16.46.647 15.778 1.203c-.75.614-1.2 1.414-1.485 2.3-.05.137-.088.275-.103.42-.06.544-.085 1.09-.063 1.635.045 1.05.38 1.982.93 2.825.46.71.94 1.376 1.544 1.968.566.548 1.168 1.05 1.748 1.573.745.66 1.5 1.306 2.235 1.98.363.335.705.695 1.015 1.085.55.693.934 1.466 1.15 2.333.26 1.043.23 2.09.17 3.142-.03.54-.098 1.076-.18 1.608-.33 2.147-1.52 3.76-3.476 4.79-1.03.538-2.124.91-3.226 1.233-1.09.32-2.196.56-3.322.712-.86.11-1.722.16-2.585.16-1.605-.002-3.2-.193-4.765-.565-1.655-.393-3.233-1.01-4.683-1.975-.8-.525-1.535-1.128-2.146-1.862-.398-.477-.75-.995-1.017-1.573-.255-.55-.45-1.122-.574-1.72-.103-.514-.153-1.034-.156-1.558 0-.39.017-.78.066-1.167.106-.85.334-1.65.71-2.396.388-.77.887-1.453 1.47-2.075.545-.577 1.13-1.112 1.716-1.646.757-.69 1.504-1.39 2.28-2.06.35-.305.678-.643.982-.995.512-.582.9-1.228 1.152-1.96.168-.49.255-.995.28-1.516.04-.817-.08-1.612-.327-2.388-.152-.464-.343-.914-.594-1.343-.602-1.04-1.423-1.857-2.426-2.472-.616-.377-1.28-.67-1.97-.9-.53-.166-1.078-.296-1.64-.377-.647-.09-1.297-.138-1.957-.14-.72-.004-1.44.06-2.15.2-1.007.195-1.957.544-2.847 1.05-.74.417-1.382.961-1.912 1.622-.36.448-.653.945-.886 1.478-.12.272-.214.557-.294.845-.056.194-.096.394-.164.583-.178.504-.36 1.005-.556 1.497-.278.704-.424 1.439-.475 2.204-.058.92.064 1.815.39 2.677.304.812.716 1.56 1.25 2.245.428.55.915 1.048 1.413 1.53l.022.022c.538.518 1.086 1.025 1.622 1.544.362.35.705.715 1.027 1.098.322.375.595.773.83 1.193.138.245.256.496.378.747.314.68.51 1.388.6 2.135.023.234.035.471.035.706v.076c0 .748-.088 1.478-.286 2.192-.21.74-.546 1.408-1.01 1.998-.382.484-.822.894-1.315 1.237-.93.645-1.972 1.047-3.07 1.257-.96.18-1.953.216-2.937.143-.876-.066-1.695-.33-2.47-.726-.85-.438-1.588-.996-2.24-1.663-.526-.538-.993-1.12-1.403-1.752-.347-.536-.643-1.1-.884-1.692-.255-.629-.435-1.28-.526-1.947-.07-.5-.093-1.004-.112-1.512-.015-.407.007-.806.05-1.204.036-.34.098-.675.174-1.008.094-.405.214-.8.348-1.186.16-.457.343-.9.575-1.32.54-.982 1.168-1.88 1.95-2.664.56-.563 1.175-1.07 1.812-1.55l.96-.76c.157-.123.305-.26.455-.394.28-.243.525-.507.698-.845.11-.213.184-.442.224-.683.032-.236.044-.468.014-.702-.055-.427-.205-.814-.45-1.14-.38-.506-.936-.817-1.466-1.117-.67-.397-1.258-.436-1.944-.097-.37.186-.716.407-1.038.662-.47.373-.857.83-1.22 1.307-.775 1.015-1.47 2.076-2.16 3.15-.2.306-.394.622-.572.942-.36.674-.666 1.364-.966 2.057-.262.602-.52 1.206-.767 1.813-.404 1.004-.76 2.027-1.06 3.067-.237.837-.445 1.684-.614 2.534-.167.83-.304 1.665-.386 2.512-.085.866-.112 1.734-.089 2.602.019.858.106 1.71.263 2.55.323 1.733.893 3.392 1.747 4.96.334.613.7 1.207 1.114 1.767.402.54.82 1.058 1.287 1.54.738.757 1.545 1.436 2.417 2.036.93.645 1.93 1.18 2.987 1.618 1.22.506 2.485.886 3.782 1.142 1.067.212 2.15.333 3.234.334.866 0 1.73-.05 2.584-.17 1.004-.138 1.993-.368 2.96-.678 1.045-.337 2.043-.775 2.97-1.337 1.43-.865 2.62-1.985 3.55-3.357.88-1.293 1.432-2.718 1.676-4.23.13-.813.192-1.632.205-2.456.023-1.35-.04-2.694-.274-4.03-.212-1.215-.566-2.394-1.092-3.504-.33-.697-.748-1.345-1.252-1.934-.575-.672-1.202-1.297-1.89-1.852-.488-.39-.99-.764-1.526-1.092-.186-.114-.39-.204-.585-.303.32-.344.5-.74.5-1.157 0-.456-.17-.896-.49-1.265-.23-.26-.51-.44-.824-.56-.14-.053-.29-.09-.43-.144.15-.137.28-.286.39-.448.36-.533.29-1.25-.18-1.712-.466-.462-1.2-.518-1.73-.126-.4.303-.69.675-.39 1.145l.105.175c-.76.035-.205.05-.28.086-.15.07-.277.152-.39.255-.09.082-.155.18-.21.284-.055.105-.095.22-.12.335-.1.515.16 1.03.66 1.265l.24.1c-.11.05-.227.088-.334.144-.125.066-.243.15-.346.244-.102.094-.188.206-.256.326-.07.12-.12.25-.15.385-.09.382 0 .777.24 1.09.242.314.618.512 1.02.542l.127.007c-.32.134-.7.28-.93.44-.05.036-.08.08-.12.12-.62.066-.113.14-.15.22-.04.08-.065.166-.074.253-.01.088-.01.178.01.264.02.087.05.172.09.252.05.08.11.153.18.216.07.065.15.117.24.16.32.15.697.05.95-.233.254-.283.304-.686.122-1.015l-.106-.176c.123-.026.25-.038.37-.082.13-.047.256-.11.37-.186.11-.075.213-.166.3-.27.086-.102.157-.217.21-.342.14-.33.15-.707 0-1.038-.15-.332-.44-.587-.784-.695l-.083-.027c.143-.088.28-.186.41-.295.066-.055.124-.115.177-.183.052-.065.098-.138.134-.215.042-.09.075-.186.095-.285.02-.1.025-.2.016-.302-.01-.1-.036-.2-.08-.293-.04-.094-.096-.18-.164-.256-.068-.076-.148-.142-.24-.196-.35-.21-.785-.21-1.142-.024-.356.187-.598.557-.586.966l.008.175c-.1.013-.205.018-.3.045-.152.044-.297.11-.424.2-.128.088-.24.198-.327.325-.088.127-.15.27-.183.422-.09.42.05.85.36 1.15.307.298.738.433 1.16.367l.132-.017zm-7.15 8.05c-.232-.35-.487-.686-.775-.996-.407-.444-.854-.845-1.35-1.19-.125-.087-.257-.166-.387-.246l-.31-.174c-.465-.253-.702-.773-.605-1.276.045-.238.17-.453.356-.61.188-.155.424-.25.674-.266.072-.004.143 0 .215.005.62.03 1.06.55 1.25 1.07.076.21.132.425.15.647.034.41-.02.83-.13 1.228-.093.332-.205.656-.356.966-.53.108-.102.218-.16.324-.25.05-.43.105-.76.145.21.122.13.245 0 .37zm3.922-11.61c-.188.127-.392.225-.606.292-.5.155-.725.09-.843-.416-.085-.36-.085-.728-.05-1.095.02-.2.064-.39.122-.58.074-.245.157-.488.244-.73.117-.318.238-.636.374-.948.055-.125.112-.252.205-.436-.223.06-.39.105-.556.15h.001c-.583.164-1.06.507-1.447.998-.258.328-.448.702-.573 1.105-.108.348-.167.706-.168 1.07-.001.635.173 1.25.524 1.793.088.134.186.263.295.384.108.12.226.23.352.328.13.1.27.184.42.25.15.066.307.114.47.14.327.057.646.03.96-.08.69-.242 1.02-.752 1.057-1.462.012-.285-.02-.567-.107-.84-.08-.246-.2-.474-.356-.677-.17-.224-.378-.42-.614-.58-.142-.098-.295-.182-.457-.246-.166-.066-.343-.11-.52-.123-.14-.01-.294.01-.42.06-.11.042-.155.14-.077.232.143.167.29.33.436.492.142.16.28.325.414.494.2.255.364.536.489.835.1.235.17.48.213.73.063.36.069.725.025 1.09-.026.22-.071.436-.136.646-.09.29-.221.566-.414.8-.232.284-.547.475-.856.568-.2.06-.41.074-.68.017.39-.29.105-.54.153-.09.278-.205.47-.477.575-.796.098-.295.133-.607.104-.918-.03-.33-.124-.647-.28-.943-.176-.337-.42-.635-.717-.878z"/>
+                  </svg>
+                )}
+                {platform === 'bandcamp' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.389 0 0 5.389 0 12s5.389 12 12 12 12-5.389 12-12S18.611 0 12 0zm0 2c5.54 0 10 4.46 10 10s-4.46 10-10 10c-1.929 0-3.734-.548-5.26-1.5L17 9H7l-2 5.5C5.074 5.292 8.205 2 12 2z"/>
+                  </svg>
+                )}
+                {platform === 'soundcloud' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7 17.939h-1v-8.068c.308-.231.639-.429 1-.566v8.634zm3 0h1v-9.224c-.229.265-.443.548-.621.857l-.379-.184v8.551zm-2 0h1v-8.848c-.508-.079-.623-.05-1-.01v8.858zm-4 0h1v-7.02c-.312.458-.555.971-.692 1.535l-.308-.182v5.667zm-3-5.25c-.606.547-1 1.354-1 2.268 0 .914.394 1.721 1 2.268v-4.536zm18.879-.671c-.204-2.837-2.404-5.079-5.117-5.079-1.022 0-1.964.328-2.762.877v10.123h9.089c1.607 0 2.911-1.393 2.911-3.106 0-2.233-2.168-3.772-4.121-2.815zm-16.879-.027c-.302-.024-.526-.03-1 .122v5.689c.446.143.636.138 1 .138v-5.949z"/>
+                  </svg>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+        
+        <div class="lg:col-span-3">
+          <h3 class="text-3xl font-bold mb-2">{featuredRelease.title}</h3>
+          <p class="text-2xl text-gray-300 mb-4">{featuredRelease.artist}</p>
+          <p class="text-gray-400 mb-6">{featuredRelease.releaseDate} • {featuredRelease.type}</p>
+          
+          <p class="text-gray-300 mb-8">{featuredRelease.description}</p>
+          
+          <div class="mb-6">
+            <h4 class="text-lg font-bold mb-3">Tracklist</h4>
+            <ol class="space-y-2 list-decimal list-inside text-gray-300">
+              {featuredRelease.tracklist.map((track, index) => (
+                <li>{track}</li>
+              ))}
+            </ol>
+          </div>
+          
+          <a 
+            href={featuredRelease.url} 
+            class="inline-block bg-trip-accent hover:bg-opacity-90 transition-colors text-white px-6 py-3 rounded-lg font-medium"
+          >
+            Read Full Review
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- All Releases Section -->
+  <section class="py-16 bg-trip-dark">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+        <h2 class="text-3xl font-bold">All Releases</h2>
+        
+        <div class="flex flex-wrap gap-4">
+          <div class="relative">
+            <select class="bg-trip-gray border border-trip-light text-white py-2 px-4 pr-10 rounded appearance-none focus:outline-none focus:border-trip-accent">
+              <option>Filter by type</option>
+              {categories.map(category => (
+                <option value={category}>{category}</option>
+              ))}
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+          
+          <div class="relative">
+            <select class="bg-trip-gray border border-trip-light text-white py-2 px-4 pr-10 rounded appearance-none focus:outline-none focus:border-trip-accent">
+              <option>Filter by year</option>
+              {years.map(year => (
+                <option value={year}>{year}</option>
+              ))}
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {releases.map(release => (
+          <ReleaseCard 
+            title={release.title}
+            artist={release.artist}
+            cover={release.cover}
+            releaseDate={release.releaseDate}
+            type={release.type}
+            url={release.url}
+            streamingLinks={release.streamingLinks}
+          />
+        ))}
+      </div>
+      
+      <div class="mt-12 flex justify-center">
+        <button class="bg-trip-gray hover:bg-trip-light transition-colors text-white py-3 px-6 rounded-lg font-medium">
+          Load More
+        </button>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,74 @@
+---
+interface Props {
+  title: string;
+  type: string;
+  thumbnail: string;
+  description: string;
+  date: string;
+  url: string;
+  videoUrl?: string;
+  credits?: string[];
+}
+
+const { 
+  title, 
+  type, 
+  thumbnail, 
+  description, 
+  date, 
+  url, 
+  videoUrl, 
+  credits = []
+} = Astro.props;
+---
+
+<article class="work-card group">
+  <a href={url} class="block">
+    <div class="relative overflow-hidden rounded-lg mb-4">
+      <div class="aspect-video">
+        <img 
+          src={thumbnail} 
+          alt={title}
+          class="w-full h-full object-cover transition-transform duration-500 ease-expo-out group-hover:scale-105"
+          loading="lazy"
+        />
+      </div>
+      
+      {videoUrl && (
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-16 h-16 rounded-full bg-trip-accent/80 flex items-center justify-center transition-transform group-hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+            </svg>
+          </div>
+        </div>
+      )}
+      
+      <div class="absolute top-3 left-3 bg-trip-black bg-opacity-80 text-xs text-white py-1 px-2 rounded">
+        {type}
+      </div>
+    </div>
+    
+    <div>
+      <h3 class="font-bold text-xl mb-2 group-hover:text-trip-accent transition-colors">{title}</h3>
+      <p class="text-gray-300 mb-3 line-clamp-2">{description}</p>
+      <p class="text-sm text-gray-400 mb-3">{date}</p>
+      
+      {credits.length > 0 && (
+        <div class="text-sm text-gray-400">
+          <span class="text-trip-accent">Credits:</span> {credits.join(', ')}
+        </div>
+      )}
+    </div>
+  </a>
+</article>
+
+<style>
+  .work-card {
+    @apply transition-all duration-300;
+  }
+  
+  .work-card:hover {
+    transform: translateY(-5px);
+  }
+</style>

@@ -1,0 +1,346 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import EventCard from '../components/EventCard.astro';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+
+// Datos de ejemplo para demostración
+const featuredEvent = {
+  title: "Festival TRIP 2025",
+  description: "Únete a nosotros en el Festival TRIP anual, celebrando lo mejor de la música electrónica underground latinoamericana. El lineup de este año presenta artistas destacados de todo el continente, con tres escenarios de música, instalaciones de arte, food trucks y mucho más.",
+  artists: ["Chancha Via Circuito", "Dengue Dengue Dengue", "Nicola Cruz", "DJ Raff", "Frente Cumbiero", "Bomba Estéreo"],
+  date: "15-17 de Julio, 2025",
+  time: "16:00 - 02:00",
+  venue: "Parque Bicentenario",
+  location: "Ciudad de México, MX",
+  image: "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  ticketUrl: "https://tickets.com",
+  url: "/agenda/festival-trip-2025"
+};
+
+const currentDate = new Date();
+const currentMonth = currentDate.getMonth();
+const currentYear = currentDate.getFullYear();
+
+// Generar fechas para el mes actual
+const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+// Eventos de ejemplo para el calendario
+const calendarEvents = [
+  {
+    day: 5,
+    events: [
+      {
+        title: "TRIP Showcase: Noche de Cumbia Digital",
+        artists: ["Frikstailers", "El Búho", "Dengue Dengue Dengue"],
+        time: "21:00",
+        venue: "Club Antártica",
+        location: "Ciudad de México, MX",
+        url: "/agenda/trip-showcase-cumbia-digital"
+      }
+    ]
+  },
+  {
+    day: 12,
+    events: [
+      {
+        title: "Fiesta de Lanzamiento del Álbum de Nicola Cruz",
+        artists: ["Nicola Cruz", "Invitados Especiales"],
+        time: "20:00",
+        venue: "Departamento",
+        location: "Ciudad de México, MX",
+        url: "/agenda/nicola-cruz-lanzamiento-album"
+      }
+    ]
+  },
+  {
+    day: 20,
+    events: [
+      {
+        title: "Beats Electrónicos Andinos",
+        artists: ["Matanza", "Chancha Via Circuito"],
+        time: "22:00",
+        venue: "La Roma Records",
+        location: "Ciudad de México, MX",
+        url: "/agenda/beats-electronicos-andinos"
+      }
+    ]
+  },
+  {
+    day: 28,
+    events: [
+      {
+        title: "Exploradores del Bass Andino",
+        artists: ["Nicola Cruz", "Matanza", "Chancha Via Circuito"],
+        time: "20:00",
+        venue: "Teatro Caupolicán",
+        location: "Santiago, CL",
+        url: "/agenda/exploradores-bass-andino"
+      }
+    ]
+  }
+];
+
+// Lista de próximos eventos
+const events = [
+  {
+    title: "TRIP Showcase: Noche de Cumbia Digital",
+    artists: ["Frikstailers", "El Búho", "Dengue Dengue Dengue"],
+    date: "5 de Junio, 2025",
+    time: "21:00",
+    venue: "Club Antártica",
+    location: "Ciudad de México, MX",
+    image: "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    ticketUrl: "https://tickets.com",
+    url: "/agenda/trip-showcase-cumbia-digital"
+  },
+  {
+    title: "Fiesta de Lanzamiento del Álbum de Nicola Cruz",
+    artists: ["Nicola Cruz", "Invitados Especiales"],
+    date: "12 de Junio, 2025",
+    time: "20:00",
+    venue: "Departamento",
+    location: "Ciudad de México, MX",
+    image: "https://images.pexels.com/photos/1699161/pexels-photo-1699161.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    ticketUrl: "https://tickets.com",
+    url: "/agenda/nicola-cruz-lanzamiento-album"
+  },
+  {
+    title: "Beats Electrónicos Andinos",
+    artists: ["Matanza", "Chancha Via Circuito"],
+    date: "20 de Junio, 2025",
+    time: "22:00",
+    venue: "La Roma Records",
+    location: "Ciudad de México, MX",
+    image: "https://images.pexels.com/photos/1540319/pexels-photo-1540319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    ticketUrl: "https://tickets.com",
+    url: "/agenda/beats-electronicos-andinos"
+  },
+  {
+    title: "Exploradores del Bass Andino",
+    artists: ["Nicola Cruz", "Matanza", "Chancha Via Circuito"],
+    date: "28 de Junio, 2025",
+    time: "20:00",
+    venue: "Teatro Caupolicán",
+    location: "Santiago, CL",
+    image: "https://images.pexels.com/photos/2078076/pexels-photo-2078076.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    ticketUrl: "https://tickets.com",
+    url: "/agenda/exploradores-bass-andino"
+  }
+];
+
+// Opciones de filtro de ciudades
+const cities = ["Todas las Ciudades", "Ciudad de México, MX", "Santiago, CL", "Bogotá, CO", "Buenos Aires, AR", "Lima, PE", "São Paulo, BR"];
+---
+
+<Layout title="Agenda">
+  <Hero 
+    title="Agenda" 
+    subtitle="Descubre próximos shows, tours y eventos en toda Latinoamérica"
+    image="https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    height="medium"
+  />
+  
+  <!-- Sección de Evento Destacado -->
+  <section class="py-16 bg-trip-black">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold mb-10">Evento Destacado</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div class="lg:col-span-2">
+          <div class="relative overflow-hidden rounded-lg">
+            <img 
+              src={featuredEvent.image} 
+              alt={featuredEvent.title}
+              class="w-full aspect-video object-cover"
+            />
+            <div class="absolute top-4 left-4 bg-trip-accent rounded py-1 px-3 text-white text-sm font-medium">
+              {featuredEvent.date}
+            </div>
+            
+            {featuredEvent.ticketUrl && (
+              <div class="absolute top-4 right-4">
+                <a 
+                  href={featuredEvent.ticketUrl}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="bg-trip-accent hover:bg-opacity-90 transition-colors text-white text-sm font-medium py-1 px-3 rounded shadow-md"
+                >
+                  Boletos
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        <div class="lg:col-span-3">
+          <h3 class="text-3xl font-bold mb-4">{featuredEvent.title}</h3>
+          <p class="text-gray-300 mb-6">{featuredEvent.description}</p>
+          
+          <div class="space-y-4 mb-6">
+            <div class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-trip-accent mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <div>
+                <p class="font-medium text-white">Artistas</p>
+                <p class="text-gray-300">{featuredEvent.artists.join(' • ')}</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-trip-accent mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <div>
+                <p class="font-medium text-white">Fecha y Hora</p>
+                <p class="text-gray-300">{featuredEvent.date} • {featuredEvent.time}</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-trip-accent mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <div>
+                <p class="font-medium text-white">Ubicación</p>
+                <p class="text-gray-300">{featuredEvent.venue}, {featuredEvent.location}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap gap-4">
+            <a 
+              href={featuredEvent.url} 
+              class="inline-block bg-trip-accent hover:bg-opacity-90 transition-colors text-white px-6 py-3 rounded-lg font-medium"
+            >
+              Detalles del Evento
+            </a>
+            
+            {featuredEvent.ticketUrl && (
+              <a 
+                href={featuredEvent.ticketUrl}
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-block bg-transparent border-2 border-white hover:border-trip-accent hover:text-trip-accent transition-colors text-white px-6 py-3 rounded-lg font-medium"
+              >
+                Comprar Boletos
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Sección de Calendario -->
+  <section class="py-16 bg-trip-dark">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex justify-between items-center mb-10">
+        <h2 class="text-3xl font-bold">Calendario</h2>
+        
+        <div class="flex items-center space-x-2">
+          <button class="p-2 rounded hover:bg-trip-light transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <h3 class="text-xl font-medium">{format(new Date(currentYear, currentMonth, 1), 'MMMM yyyy', { locale: es })}</h3>
+          <button class="p-2 rounded hover:bg-trip-light transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <div class="bg-trip-gray rounded-lg overflow-hidden">
+        <div class="grid grid-cols-7 text-center border-b border-trip-light">
+          <div class="py-3 font-medium">Dom</div>
+          <div class="py-3 font-medium">Lun</div>
+          <div class="py-3 font-medium">Mar</div>
+          <div class="py-3 font-medium">Mié</div>
+          <div class="py-3 font-medium">Jue</div>
+          <div class="py-3 font-medium">Vie</div>
+          <div class="py-3 font-medium">Sáb</div>
+        </div>
+        
+        <div class="grid grid-cols-7">
+          {Array.from({ length: firstDayOfMonth }).map(() => (
+            <div class="min-h-[100px] p-2 border-b border-r border-trip-light"></div>
+          ))}
+          
+          {days.map(day => {
+            const hasEvents = calendarEvents.some(event => event.day === day);
+            const dayEvents = calendarEvents.find(event => event.day === day)?.events || [];
+            
+            return (
+              <div class={`min-h-[100px] p-2 border-b border-r border-trip-light ${hasEvents ? 'bg-trip-gray' : ''}`}>
+                <div class="flex justify-between items-center mb-2">
+                  <span class={`text-sm font-medium ${hasEvents ? 'text-white' : 'text-gray-400'}`}>{day}</span>
+                  {hasEvents && <span class="w-2 h-2 rounded-full bg-trip-accent"></span>}
+                </div>
+                
+                {dayEvents.map(event => (
+                  <a href={event.url} class="block mt-1 p-1 text-xs bg-trip-light hover:bg-trip-accent hover:text-white transition-colors rounded">
+                    <div class="font-medium truncate">{event.title}</div>
+                    <div class="text-gray-400">{event.time}</div>
+                  </a>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Sección de Próximos Eventos -->
+  <section class="py-16 bg-trip-black">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+        <h2 class="text-3xl font-bold">Próximos Eventos</h2>
+        
+        <div class="relative">
+          <select class="bg-trip-gray border border-trip-light text-white py-2 px-4 pr-10 rounded appearance-none focus:outline-none focus:border-trip-accent">
+            <option>Filtrar por ciudad</option>
+            {cities.map(city => (
+              <option value={city}>{city}</option>
+            ))}
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {events.map(event => (
+          <EventCard 
+            title={event.title}
+            artists={event.artists}
+            date={event.date}
+            time={event.time}
+            venue={event.venue}
+            location={event.location}
+            image={event.image}
+            ticketUrl={event.ticketUrl}
+            url={event.url}
+          />
+        ))}
+      </div>
+      
+      <div class="mt-12 flex justify-center">
+        <button class="bg-trip-gray hover:bg-trip-light transition-colors text-white py-3 px-6 rounded-lg font-medium">
+          Cargar Más
+        </button>
+      </div>
+    </div>
+  </section>
+</Layout>

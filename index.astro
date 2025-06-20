@@ -1,0 +1,297 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import ReleaseCard from '../components/ReleaseCard.astro';
+import EventCard from '../components/EventCard.astro';
+import WorkCard from '../components/WorkCard.astro';
+
+// Datos de ejemplo para demostración
+const articles = [
+  {
+    title: "DJ Raff y Mago Zambrano se Unen en una Explosiva Nueva Colaboración",
+    excerpt: "El DJ chileno Raff y el productor ecuatoriano Mago Zambrano unen fuerzas para un nuevo EP que mezcla beats electrónicos con sonidos andinos tradicionales.",
+    image: "https://images.pexels.com/photos/1540319/pexels-photo-1540319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "Noticias",
+    date: "15 de Mayo, 2025",
+    url: "/noticias/dj-raff-mago-zambrano-colaboracion"
+  },
+  {
+    title: "El Auge de la Cumbia Digital: Cómo los Ritmos Tradicionales Evolucionan en Latinoamérica",
+    excerpt: "Una inmersión profunda en cómo los productores de toda Latinoamérica están reimaginando la cumbia tradicional a través de la producción electrónica.",
+    image: "https://images.pexels.com/photos/3777952/pexels-photo-3777952.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "Reportajes",
+    date: "10 de Mayo, 2025",
+    url: "/reportajes/evolucion-cumbia-digital"
+  },
+  {
+    title: "Dentro de la Escena Electrónica Underground de Ciudad de México",
+    excerpt: "Exploramos la próspera escena de música electrónica underground en la CDMX, desde fiestas en bodegas hasta clubes experimentales.",
+    image: "https://images.pexels.com/photos/2034851/pexels-photo-2034851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    category: "Escena",
+    date: "3 de Mayo, 2025",
+    url: "/escena/cdmx-underground"
+  }
+];
+
+const releases = [
+  {
+    title: "Raíces Digitales",
+    artist: "Chancha Via Circuito",
+    cover: "https://images.pexels.com/photos/3717211/pexels-photo-3717211.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "12 de Mayo, 2025",
+    type: "Álbum",
+    url: "/lanzamientos/chancha-via-circuito-raices-digitales",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      bandcamp: "https://bandcamp.com"
+    }
+  },
+  {
+    title: "Selva Neón",
+    artist: "Caribombo",
+    cover: "https://images.pexels.com/photos/1995730/pexels-photo-1995730.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "28 de Abril, 2025",
+    type: "EP",
+    url: "/lanzamientos/caribombo-selva-neon",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      appleMusic: "https://music.apple.com"
+    }
+  },
+  {
+    title: "Ciudad Satélite",
+    artist: "Mexican Institute of Sound",
+    cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "15 de Abril, 2025",
+    type: "Sencillo",
+    url: "/lanzamientos/mexican-institute-of-sound-ciudad-satelite",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      soundcloud: "https://soundcloud.com"
+    }
+  },
+  {
+    title: "Futurismo Ancestral",
+    artist: "Nicola Cruz",
+    cover: "https://images.pexels.com/photos/3075988/pexels-photo-3075988.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    releaseDate: "5 de Abril, 2025",
+    type: "Álbum",
+    url: "/lanzamientos/nicola-cruz-futurismo-ancestral",
+    streamingLinks: {
+      spotify: "https://spotify.com",
+      bandcamp: "https://bandcamp.com"
+    }
+  }
+];
+
+const events = [
+  {
+    title: "TRIP Showcase: Noche de Cumbia Digital",
+    artists: ["Frikstailers", "El Búho", "Dengue Dengue Dengue"],
+    date: "5 de Junio, 2025",
+    time: "21:00",
+    venue: "Club Antártica",
+    location: "Ciudad de México, MX",
+    image: "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    ticketUrl: "https://tickets.com",
+    url: "/agenda/trip-showcase-cumbia-digital"
+  },
+  {
+    title: "Exploradores del Bass Andino",
+    artists: ["Nicola Cruz", "Matanza", "Chancha Via Circuito"],
+    date: "28 de Mayo, 2025",
+    time: "20:00",
+    venue: "Teatro Caupolicán",
+    location: "Santiago, CL",
+    image: "https://images.pexels.com/photos/2078076/pexels-photo-2078076.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    ticketUrl: "https://tickets.com",
+    url: "/agenda/exploradores-bass-andino"
+  }
+];
+
+const works = [
+  {
+    title: "Sonidos del Sur: Un Documental",
+    type: "Documental",
+    thumbnail: "https://images.pexels.com/photos/7258521/pexels-photo-7258521.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Un viaje a través de la evolución de la música electrónica en Sudamérica, con entrevistas a artistas pioneros.",
+    date: "Abril 2025",
+    url: "/nuestro-trabajo/sonidos-del-sur",
+    videoUrl: "https://youtube.com",
+    credits: ["Directora: María González", "Productora: TRIP Música"]
+  },
+  {
+    title: "DJ Raff en Vivo desde Festival Nómade",
+    type: "Sesión en Vivo",
+    thumbnail: "https://images.pexels.com/photos/3784566/pexels-photo-3784566.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    description: "Grabación exclusiva de la presentación revolucionaria de DJ Raff en el Festival Nómade de Colombia.",
+    date: "Marzo 2025",
+    url: "/nuestro-trabajo/dj-raff-festival-nomade",
+    videoUrl: "https://youtube.com",
+    credits: ["Videografía: Equipo TRIP Música", "Audio: Carlos Mendoza"]
+  }
+];
+---
+
+<Layout title="Inicio">
+  <Hero 
+    title="TRIP Música" 
+    subtitle="Noticias, lanzamientos, eventos y producciones audiovisuales de la música underground latinoamericana"
+    image="https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    height="large"
+  >
+    <div class="flex flex-wrap gap-4 mt-8">
+      <a href="/lanzamientos" class="bg-trip-accent hover:bg-opacity-90 transition-colors text-white px-6 py-3 rounded-lg font-medium">
+        Últimos Lanzamientos
+      </a>
+      <a href="/agenda" class="bg-transparent border-2 border-white hover:border-trip-accent hover:text-trip-accent transition-colors text-white px-6 py-3 rounded-lg font-medium">
+        Próximos Eventos
+      </a>
+    </div>
+  </Hero>
+  
+  <!-- Sección de Últimas Noticias -->
+  <section class="py-16 bg-trip-black">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex justify-between items-center mb-10">
+        <h2 class="text-3xl font-bold">Últimas Noticias</h2>
+        <a href="/noticias" class="text-trip-accent hover:underline flex items-center">
+          Ver Todas
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {articles.map((article, index) => (
+          <ArticleCard 
+            title={article.title}
+            excerpt={article.excerpt}
+            image={article.image}
+            category={article.category}
+            date={article.date}
+            url={article.url}
+            featured={index === 0}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Sección de Últimos Lanzamientos -->
+  <section class="py-16 bg-trip-dark">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex justify-between items-center mb-10">
+        <h2 class="text-3xl font-bold">Últimos Lanzamientos</h2>
+        <a href="/lanzamientos" class="text-trip-accent hover:underline flex items-center">
+          Ver Todos
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {releases.map(release => (
+          <ReleaseCard 
+            title={release.title}
+            artist={release.artist}
+            cover={release.cover}
+            releaseDate={release.releaseDate}
+            type={release.type}
+            url={release.url}
+            streamingLinks={release.streamingLinks}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Sección de Próximos Eventos -->
+  <section class="py-16 bg-trip-black">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex justify-between items-center mb-10">
+        <h2 class="text-3xl font-bold">Próximos Eventos</h2>
+        <a href="/agenda" class="text-trip-accent hover:underline flex items-center">
+          Ver Todos
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {events.map(event => (
+          <EventCard 
+            title={event.title}
+            artists={event.artists}
+            date={event.date}
+            time={event.time}
+            venue={event.venue}
+            location={event.location}
+            image={event.image}
+            ticketUrl={event.ticketUrl}
+            url={event.url}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Sección de Trabajo Destacado -->
+  <section class="py-16 bg-trip-dark">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex justify-between items-center mb-10">
+        <h2 class="text-3xl font-bold">Trabajo Destacado</h2>
+        <a href="/nuestro-trabajo" class="text-trip-accent hover:underline flex items-center">
+          Ver Todo
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {works.map(work => (
+          <WorkCard 
+            title={work.title}
+            type={work.type}
+            thumbnail={work.thumbnail}
+            description={work.description}
+            date={work.date}
+            url={work.url}
+            videoUrl={work.videoUrl}
+            credits={work.credits}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Sección de Newsletter -->
+  <section class="py-16 bg-trip-accent">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Mantente Actualizado</h2>
+        <p class="text-white text-lg mb-8">Suscríbete a nuestro newsletter para recibir las últimas noticias sobre lanzamientos, eventos y contenido exclusivo.</p>
+        
+        <form class="flex flex-col sm:flex-row gap-4 justify-center">
+          <input 
+            type="email" 
+            placeholder="Tu dirección de correo" 
+            class="bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 flex-grow max-w-md"
+            required
+          />
+          <button 
+            type="submit" 
+            class="bg-white text-trip-accent py-3 px-6 rounded-lg font-medium hover:bg-opacity-90 transition-colors whitespace-nowrap"
+          >
+            Suscribirse
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
